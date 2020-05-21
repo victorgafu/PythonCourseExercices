@@ -1,5 +1,5 @@
 import unittest
-from activities import eat, nap
+from activities import eat, nap, is_funny, laugh
 
 
 class ActivityTests(unittest.TestCase):
@@ -30,3 +30,17 @@ class ActivityTests(unittest.TestCase):
             nap(3),
             "Ugh I overslept. I didn't mean to nap for 3 hours!"
         )
+
+    def test_is_funny_tim(self):
+        """tim should not be funny"""
+        self.assertEqual(is_funny("tim"), False)
+
+    def test_is_funny_anyone_else(self):
+        """anyone except tim should be funny"""
+        self.assertTrue(is_funny("blue"), "blue should be funny")
+        self.assertTrue(is_funny("tammy"), "tammy should be funny")
+        self.assertTrue(is_funny("sven"), "sven should be funny")
+
+    def test_laugh(self):
+        """laugh returns a laughing string"""
+        self.assertIn(laugh(), ('lol', 'haha', 'tehehe'))
