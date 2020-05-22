@@ -24,11 +24,11 @@ class Card:
 
 class Deck:
     full_deck = 52
+    suits = ("Hearts", "Diamonds", "Clubs", "Spades")
+    values = ("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K")
 
     def __init__(self):
-        suits = ("Hearts", "Diamonds", "Clubs", "Spades")
-        values = ("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K")
-        self.cards = [Card(suit, value) for suit in suits for value in values]
+        self._generate_deck()
 
     def __repr__(self):
         return f"Deck of {self.count()} cards"
@@ -36,17 +36,11 @@ class Deck:
     def __iter__(self):
         return iter(self.cards)
 
+    def reset(self):
+        self._generate_deck()
+
     def count(self):
         return len(self.cards)
-
-    def _deal(self, amount=1):
-        count = self.count()
-        actual = min([count, amount])
-        if count == 0:
-            raise ValueError("All cards have been dealt")
-        cards = self.cards[-actual:]
-        self.cards = self.cards[:-actual]
-        return cards
 
     def shuffle(self):
         if self.count() < Deck.full_deck:
@@ -60,6 +54,18 @@ class Deck:
 
     def deal_hand(self, amount):
         return self._deal(amount)
+
+    def _deal(self, amount=1):
+        count = self.count()
+        actual = min([count, amount])
+        if count == 0:
+            raise ValueError("All cards have been dealt")
+        cards = self.cards[-actual:]
+        self.cards = self.cards[:-actual]
+        return cards
+
+    def _generate_deck(self):
+        self.cards = [Card(suit, value) for suit in Deck.suits for value in Deck.values]
 
 
 my_deck = Deck()
