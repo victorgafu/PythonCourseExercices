@@ -17,6 +17,11 @@ class ActivityTests(unittest.TestCase):
             "I'm eating pizza, because YOLO!"
         )
 
+    def test_eat_healthy_boolean(self):
+        """is_healthy must be a bool"""
+        with self.assertRaises(ValueError):
+            eat("pizza", is_healthy="who cares?")
+
     def test_short_nap(self):
         """short naps should be refreshing"""
         self.assertEqual(

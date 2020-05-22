@@ -2,6 +2,9 @@ from random import choice
 
 
 def eat(food, is_healthy):
+    if not isinstance(is_healthy, bool):
+        raise ValueError("is_healthy must be bool")
+
     ending = "because YOLO!"
     if is_healthy:
         ending = "because my body is a temple"
